@@ -9,7 +9,7 @@ type HeaderButtonProps = {
 const HeaderButton: React.FC<HeaderButtonProps> = ({ location, text }) => {
   return (
     <Link href={`/${location}`}>
-      <a className="p-4 mx-2 outline-none hover:bg-slate-300 dark:hover:bg-slate-800 rounded uppercase dark:text-white">
+      <a className="p-4 mx-2 outline-none hover:bg-slate-300 dark:hover:bg-slate-800 rounded uppercase dark:text-white transition-colors ease-in-out duration-300">
         {text ? text : location}
       </a>
     </Link>
