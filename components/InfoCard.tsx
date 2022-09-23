@@ -1,15 +1,17 @@
 import Image from "next/image";
 import React from "react";
+import { IconContext, IconType } from "react-icons";
 
 type InfoCardProps = {
   cardColours: string;
   badgeColours: string;
   name: string;
-  image: string;
+  image: string | JSX.Element;
   textColour?: string;
   hoverTextColour?: string;
   link: string;
   buttonMessage: string;
+  iconFill?: string;
 };
 
 const InfoCard: React.FC<InfoCardProps> = ({
@@ -21,6 +23,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
   hoverTextColour,
   link,
   buttonMessage,
+  iconFill,
 }) => {
   return (
     <div
@@ -29,13 +32,19 @@ const InfoCard: React.FC<InfoCardProps> = ({
       <div
         className={`w-30 h-30 m-4 rounded-full border-4 grid p-4 ${badgeColours} bg-slate-200 dark:bg-gray-800 group-hover:bg-slate-50 dark:group-hover:bg-gray-700`}
       >
-        <Image
-          src={image}
-          alt={`${name} logo`}
-          objectFit="scale-down"
-          width={120}
-          height={120}
-        />
+        {typeof image === "string" ? (
+          <Image
+            src={image}
+            alt={`${name} logo`}
+            objectFit="scale-down"
+            width={120}
+            height={120}
+          />
+        ) : (
+          <IconContext.Provider value={{ className: iconFill, size: "120" }}>
+            {image}
+          </IconContext.Provider>
+        )}
       </div>
       <h3
         className={`${

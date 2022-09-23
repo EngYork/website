@@ -1,4 +1,5 @@
 import React from "react";
+import { MdEmail } from "react-icons/md";
 import { InfoCard } from "./InfoCard";
 
 const cards = [
@@ -23,14 +24,6 @@ const cards = [
     buttonMessage: "Join our Discord server",
   },
   {
-    name: "Github",
-    cardColours: "border-black bg-black",
-    image: "/assets/github.png",
-    badgeColours: "border-black",
-    link: "https://github.com/ShockSoc",
-    buttonMessage: "See our GitHub Org",
-  },
-  {
     name: "Twitter",
     cardColours: "border-[#1DA1F2] bg-[#1DA1F2]", // Twitter blue
     image: "/assets/twitter.png",
@@ -39,6 +32,35 @@ const cards = [
     hoverTextColour: "hover:text-[#1DA1F2]",
     link: "https://twitter.com/uoy_shocksoc",
     buttonMessage: "See our Twitter profile",
+  },
+  {
+    name: "Instagram",
+    cardColours: "border-[#F56040] bg-[#F56040]", // Twitter blue
+    image: "/assets/instagram.png",
+    badgeColours: "border-[#F56040]",
+    textColour: "text-[#F56040]",
+    hoverTextColour: "hover:text-[#F56040]",
+    link: "https://www.instagram.com/uoy_shocksoc/",
+    buttonMessage: "Follow us on Instagram",
+  },
+  {
+    name: "Github",
+    cardColours: "border-black bg-black",
+    image: "/assets/github.png",
+    badgeColours: "border-black",
+    link: "https://github.com/ShockSoc",
+    buttonMessage: "See our GitHub Org",
+  },
+  {
+    name: "E-Mail",
+    cardColours: "border-amber-500 bg-amber-500",
+    image: <MdEmail />,
+    badgeColours: "border-amber-500",
+    textColour: "text-amber-500",
+    hoverTextColour: "hover:text-amber-500",
+    link: "mailto:shocksoc@yusu.org",
+    buttonMessage: "Send us an e-mail",
+    iconFill: "fill-amber-500",
   },
 ];
 
@@ -58,6 +80,7 @@ const Info = () => {
             hoverTextColour={card.hoverTextColour}
             link={card.link}
             buttonMessage={card.buttonMessage}
+            iconFill={card.iconFill}
           />
         ))}
       </div>
