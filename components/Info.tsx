@@ -5,7 +5,7 @@ import { InfoCard } from "./InfoCard";
 const cards = [
   {
     name: "Yusu",
-    cardColours: "border-cyan-500 bg-cyan-500", // Discord purple
+    cardColours: "border-cyan-500 bg-cyan-500 shadow-cyan-500",
     image: "/assets/yusu.png",
     badgeColours: "border-cyan-500",
     textColour: "text-cyan-500",
@@ -15,7 +15,7 @@ const cards = [
   },
   {
     name: "Discord",
-    cardColours: "border-[#5865F2] bg-[#5865F2]", // Discord purple
+    cardColours: "border-[#5865F2] bg-[#5865F2] shadow-[#5865F2]", // Discord purple
     image: "/assets/discord.png",
     badgeColours: "border-[#5865F2]",
     textColour: "text-[#5865F2]",
@@ -25,7 +25,7 @@ const cards = [
   },
   {
     name: "Twitter",
-    cardColours: "border-[#1DA1F2] bg-[#1DA1F2]", // Twitter blue
+    cardColours: "border-[#1DA1F2] bg-[#1DA1F2] shadow-[#1DA1F2]", // Twitter blue
     image: "/assets/twitter.png",
     badgeColours: "border-[#1DA1F2]",
     textColour: "text-[#1DA1F2]",
@@ -35,7 +35,7 @@ const cards = [
   },
   {
     name: "Instagram",
-    cardColours: "border-[#F56040] bg-[#F56040]", // Twitter blue
+    cardColours: "border-[#F56040] bg-[#F56040] shadow-[#F56040]", // Instagram orange red
     image: "/assets/instagram.png",
     badgeColours: "border-[#F56040]",
     textColour: "text-[#F56040]",
@@ -45,7 +45,7 @@ const cards = [
   },
   {
     name: "Github",
-    cardColours: "border-black bg-black",
+    cardColours: "border-black bg-black shadow-black",
     image: "/assets/github.png",
     badgeColours: "border-black",
     link: "https://github.com/ShockSoc",
@@ -53,7 +53,7 @@ const cards = [
   },
   {
     name: "E-Mail",
-    cardColours: "border-amber-500 bg-amber-500",
+    cardColours: "border-amber-500 bg-amber-500 shadow-amber-500",
     image: <MdEmail />,
     badgeColours: "border-amber-500",
     textColour: "text-amber-500",

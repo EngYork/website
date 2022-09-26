@@ -5,3 +5,4 @@ export * from "./Hero";
 export * from "./Carousel";
 export * from "./Info";
 export * from "./InfoCard";
+export * from "./Events";

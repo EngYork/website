@@ -27,10 +27,10 @@ const InfoCard: React.FC<InfoCardProps> = ({
 }) => {
   return (
     <div
-      className={`flex flex-col p-2 rounded-lg border-2 ${cardColours} bg-opacity-20 mx-auto sm:mx-8 my-4 items-center relative group`}
+      className={`flex flex-col p-2 rounded-lg border-2 ${cardColours} bg-opacity-20 mx-auto sm:mx-8 my-4 items-center relative group shadow-md`}
     >
       <div
-        className={`w-30 h-30 m-4 rounded-full border-4 grid p-4 ${badgeColours} bg-slate-200 dark:bg-gray-800 group-hover:bg-slate-50 dark:group-hover:bg-gray-700`}
+        className={`w-30 h-30 m-4 rounded-full border-4 grid p-4 ${badgeColours} bg-slate-200 dark:bg-gray-800 group-hover:bg-slate-50 dark:group-hover:bg-gray-700 transition-colors ease-in-out duration-200`}
       >
         {typeof image === "string" ? (
           <Image

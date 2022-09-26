@@ -12,8 +12,9 @@ const About: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <Header />
+
       <main>
-        <Header />
         <AboutUs />
       </main>
     </div>

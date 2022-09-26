@@ -14,7 +14,7 @@ const AboutUs = () => {
   return (
     <>
       <div className="w-full bg-slate-100 dark:bg-gray-700 group">
-        <div className="flex flex-col items-center justify-center w-full h-[300px] text-black dark:text-white">
+        <div className="flex flex-col items-center justify-center w-full h-[150px] sm:h-[300px] text-black dark:text-white">
           <h1 className="text-5xl sm:text-7xl font-bold my-4">About Us</h1>
         </div>
       </div>
