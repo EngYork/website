@@ -54,3 +54,7 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model AllowedUsers {
+  userName String @id @unique
+}
