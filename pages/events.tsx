@@ -26,7 +26,7 @@ const Home: NextPage = () => {
           <h1 className="text-5xl sm:text-7xl font-bold my-4">Events</h1>
         </div>
       </div>
-      <div className="flex flex-col items-center w-full justify-center bg-slate-200 dark:bg-gray-800 text-gray-900 dark:text-slate-100 p-4">
+      <div className="flex flex-col items-center w-full min-h-[500px] justify-center bg-slate-200 dark:bg-gray-800 text-gray-900 dark:text-slate-100 p-4">
         {events.map((event) => (
           <EventCard
             key={event.name}

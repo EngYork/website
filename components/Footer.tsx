@@ -6,7 +6,7 @@ import { MdCopyright } from "react-icons/md";
 const Footer = () => {
   return (
     <footer>
-      <div className="w-full p-4 grid grid-cols-3 bg-slate-400 dark:bg-slate-900 text-gray-900 dark:text-slate-100">
+      <div className="w-full p-4 grid grid-cols-3 bg-slate-400 dark:bg-slate-900 text-gray-900 dark:text-slate-100 relative bottom-0 left-0 right-0">
         <div /> {/* Empty div for items alignment */}
         <span className="italic text-center self-center grid grid-cols-[5%_95%] items-center mx-2">
           <IconContext.Provider
