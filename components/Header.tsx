@@ -2,8 +2,10 @@ import Link from "next/link";
 import React from "react";
 import { HeaderButton } from "./HeaderButton";
 import { Logo } from "./Logo";
+import { useSession } from "next-auth/react";
 
 const Header: React.FC = () => {
+  const { status } = useSession();
   return (
     <header className="hidden w-full p-2 bg-slate-400 dark:bg-slate-900 shadow-2xl shadow-gray-400 dark:shadow-gray-900 md:flex flex-row justify-between items-center relative">
       <Link href="/">
@@ -18,6 +20,10 @@ const Header: React.FC = () => {
         <HeaderButton location="/" text="Home" />
         <HeaderButton location="about" />
         <HeaderButton location="events" />
+        <HeaderButton
+          location={status === "authenticated" ? "admin" : "/api/auth/signin"}
+          text="Admin"
+        />
       </div>
     </header>
   );
