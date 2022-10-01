@@ -11,5 +11,16 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.DISCORD_CLIENT_SECRET || "",
     }),
   ],
+  callbacks: {
+    signIn: async ({ user }) => {
+      const userIsFound = await prisma.allowedUsers.findFirst({
+        where: {
+          userName: user.name || "",
+        },
+      });
+      if (userIsFound) return true;
+      else return false;
+    },
+  },
 };
 export default NextAuth(authOptions);
