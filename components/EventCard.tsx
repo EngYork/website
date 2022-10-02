@@ -12,12 +12,12 @@ type EventCardProps = {
   admin: boolean;
 };
 
-type FormData = {
+interface IFormData {
   when: string;
   where: string;
   name: string;
   description: string;
-};
+}
 
 const EventCard: React.FC<EventCardProps> = ({
   name,
@@ -32,10 +32,19 @@ const EventCard: React.FC<EventCardProps> = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+    reset,
+  } = useForm<IFormData>();
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<IFormData> = (data, event) => {
+    const nv = event?.nativeEvent as SubmitEvent;
+    const submitter = nv.submitter as HTMLButtonElement;
+
+    if (submitter.name === "deploy") {
+      console.log(data);
+    } else {
+      reset();
+      setEditing(false);
+    }
   };
 
   return (
@@ -84,7 +93,7 @@ const EventCard: React.FC<EventCardProps> = ({
                 <textarea
                   defaultValue={when}
                   {...register("when")}
-                  className="bg-transparent outline-none w-1/3 text-center text-slate-100"
+                  className="bg-transparent outline-none w-1/3 text-center"
                   rows={1}
                 />
               </span>
@@ -93,7 +102,7 @@ const EventCard: React.FC<EventCardProps> = ({
                 <textarea
                   defaultValue={where}
                   {...register("where")}
-                  className="bg-transparent outline-none w-1/3 text-center text-slate-100"
+                  className="bg-transparent outline-none w-1/3 text-center"
                   rows={1}
                 />
               </span>
@@ -114,9 +123,20 @@ const EventCard: React.FC<EventCardProps> = ({
               className="w-full bg-transparent outline-none"
             />
           </div>
-          <button className="self-end p-4 border-2 m-4 rounded border-[#65b32e] bg-[#65b32e] hover:bg-transparent hover:text-[#65b32e] text-slate-100 transition-colors ease-in-out duration-300">
-            Apply and Deploy
-          </button>
+          <div className="flex flex-row self-end m-4">
+            <button
+              className="p-4 border-2 rounded border-red-500 bg-red-500 hover:bg-transparent hover:text-red-500 text-slate-100 transition-colors ease-in-out duration-300"
+              name="cancel"
+            >
+              Cancel
+            </button>
+            <button
+              className="p-4 border-2 ml-4 rounded border-[#65b32e] bg-[#65b32e] hover:bg-transparent hover:text-[#65b32e] text-slate-100 transition-colors ease-in-out duration-300"
+              name="deploy"
+            >
+              Apply and Deploy
+            </button>
+          </div>
         </form>
       )}
     </div>
