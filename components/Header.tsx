@@ -21,8 +21,12 @@ const Header: React.FC = () => {
         <HeaderButton location="about" />
         <HeaderButton location="events" />
         <HeaderButton
-          location={status === "authenticated" ? "admin" : "/api/auth/signin"}
-          text="Admin"
+          location={
+            status === "authenticated"
+              ? "/api/auth/signout"
+              : "/api/auth/signin"
+          }
+          text={status === "authenticated" ? "Sign Out" : "LogIn"}
         />
       </div>
     </header>
