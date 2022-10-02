@@ -60,7 +60,8 @@ model AllowedUsers {
 }
 
 model Events {
-  name        String @id @unique
+  id          String @id @default(uuid())
+  name        String @unique
   when        String
   where       String
   description String

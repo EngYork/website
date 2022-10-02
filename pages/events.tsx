@@ -75,7 +75,8 @@ const Events: NextPage<EventsType> = ({ events }) => {
       <div className="flex flex-col items-center w-full justify-center bg-slate-200 dark:bg-gray-800 text-gray-900 dark:text-slate-100 p-4">
         {events.map((event) => (
           <EventCard
-            key={event.name}
+            key={event.id}
+            id={event.id}
             name={event.name}
             where={event.where}
             when={event.when}

@@ -4,6 +4,7 @@ import { MdDeleteForever, MdEdit } from "react-icons/md";
 import { SubmitHandler, useForm, UseFormRegister } from "react-hook-form";
 
 type EventCardProps = {
+  id: string;
   name: string;
   description: string;
   when: string;
@@ -20,6 +21,7 @@ interface IFormData {
 }
 
 const EventCard: React.FC<EventCardProps> = ({
+  id,
   name,
   description,
   when,
@@ -28,6 +30,7 @@ const EventCard: React.FC<EventCardProps> = ({
   admin,
 }) => {
   const [editing, setEditing] = useState(false);
+  const [responseError, setResponseError] = useState(undefined);
   const {
     register,
     handleSubmit,
@@ -40,7 +43,20 @@ const EventCard: React.FC<EventCardProps> = ({
     const submitter = nv.submitter as HTMLButtonElement;
 
     if (submitter.name === "deploy") {
-      console.log(data);
+      fetch("/api/events/edit", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...data, id }),
+      }).then(async (res) => {
+        if (res.status === 200) {
+          reset();
+          setEditing(false);
+        } else {
+          setResponseError((await res.json()).message);
+        }
+      });
     } else {
       reset();
       setEditing(false);
@@ -123,6 +139,9 @@ const EventCard: React.FC<EventCardProps> = ({
               className="w-full bg-transparent outline-none"
             />
           </div>
+          {responseError && (
+            <p className="self-center text-red-500 italic">{responseError}</p>
+          )}
           <div className="flex flex-row self-end m-4">
             <button
               className="p-4 border-2 rounded border-red-500 bg-red-500 hover:bg-transparent hover:text-red-500 text-slate-100 transition-colors ease-in-out duration-300"
