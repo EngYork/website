@@ -1,20 +1,16 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { EventCard } from "../components/EventCard";
 import Modal from "react-modal";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import prisma from "../lib/prismadb";
+import { Events } from "@prisma/client";
 
-const events = [
-  {
-    name: "Weekly Labs",
-    where: "P/T/401",
-    when: "Every Wednesday 14:00-17:00",
-    description:
-      "ShockSoc's regular Lab sessions. Bring your own stuff to work on, pick up one of our projects, or start work on something new. Our lab sessions are open to everyone.",
-  },
-];
+type EventsType = {
+  events: Events[];
+};
 
 interface IFormData {
   when: string;
@@ -23,26 +19,43 @@ interface IFormData {
   description: string;
 }
 
-const Home: NextPage = () => {
+const Events: NextPage<EventsType> = ({ events }) => {
   const { status } = useSession();
   const [showModal, setShowModal] = useState(false);
-  const closeModal = () => setShowModal(false);
+  const [responseError, setResponseError] = useState(undefined);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm<IFormData>();
+
+  const closeModal = () => {
+    reset();
+    setResponseError(undefined);
+    setShowModal(false);
+  };
 
   const onSubmit: SubmitHandler<IFormData> = (data, event) => {
     const nv = event?.nativeEvent as SubmitEvent;
     const submitter = nv.submitter as HTMLButtonElement;
 
     if (submitter.name === "deploy") {
-      console.log(data);
+      fetch("/api/events/new", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }).then(async (res) => {
+        if (res.status === 200) {
+          closeModal();
+        } else {
+          setResponseError((await res.json()).message);
+        }
+      });
     } else {
-      reset();
       closeModal();
     }
   };
@@ -125,6 +138,9 @@ const Home: NextPage = () => {
               className="w-full bg-transparent outline-none placeholder:text-gray-900 dark:placeholder:text-slate-100"
             />
           </div>
+          {responseError && (
+            <p className="self-center text-red-500 italic">{responseError}</p>
+          )}
           <div className="flex flex-row self-end m-4">
             <button
               className="p-4 border-2 ml-4 rounded border-[#65b32e] bg-[#65b32e] hover:bg-transparent hover:text-[#65b32e] text-slate-100 transition-colors ease-in-out duration-300"
@@ -145,4 +161,12 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export const getStaticProps: GetStaticProps = async () => {
+  const events = await prisma.events.findMany();
+  console.log(events);
+  return {
+    props: { events },
+  };
+};
+
+export default Events;

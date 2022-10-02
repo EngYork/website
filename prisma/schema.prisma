@@ -58,3 +58,10 @@ model VerificationToken {
 model AllowedUsers {
   userName String @id @unique
 }
+
+model Events {
+  name        String @id @unique
+  when        String
+  where       String
+  description String
+}
