@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { IconContext } from "react-icons";
 import { MdDeleteForever, MdEdit } from "react-icons/md";
-import { SubmitHandler, useForm, UseFormRegister } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
+import Modal from "react-modal";
 
 type EventCardProps = {
   id: string;
@@ -31,6 +32,8 @@ const EventCard: React.FC<EventCardProps> = ({
 }) => {
   const [editing, setEditing] = useState(false);
   const [responseError, setResponseError] = useState(undefined);
+  const [showModal, setShowModal] = useState(false);
+  const closeModal = () => setShowModal(false);
   const {
     register,
     handleSubmit,
@@ -64,101 +67,148 @@ const EventCard: React.FC<EventCardProps> = ({
   };
 
   return (
-    <div className="w-2/3 rounded shadow-lg border-2 border-slate-900 bg-slate-300 dark:bg-slate-600 flex flex-col relative">
-      {admin && (
-        <div className="absolute right-0 -translate-y-1/2 translate-x-1/2 flex flex-row rounded-lg bg-slate-300 p-2 shadow-xl">
-          <IconContext.Provider
-            value={{
-              className: "fill-slate-300 dark:fill-slate-600",
-              size: "20",
-            }}
-          >
-            <button
-              title="Edit"
-              className="mr-2"
-              onClick={() => setEditing(true)}
+    <>
+      <div className="w-2/3 rounded shadow-lg border-2 border-slate-900 bg-slate-300 dark:bg-slate-600 flex flex-col relative my-4">
+        {admin && (
+          <div className="absolute right-0 -translate-y-1/2 translate-x-1/2 flex flex-row rounded-lg bg-slate-300 p-2 shadow-xl">
+            <IconContext.Provider
+              value={{
+                className: "fill-slate-300 dark:fill-slate-600",
+                size: "20",
+              }}
             >
-              <MdEdit />
-            </button>
-            <button title="Remove and Deploy" className="ml-2">
-              <MdDeleteForever />
-            </button>
-          </IconContext.Provider>
-        </div>
-      )}
-      {!editing && (
-        <>
-          <div className="w-full bg-gradient-to-r from-[#65b32e] to-[#0095d6]">
-            <p className="text-center p-4 text-slate-100">
-              {when} @ {where}
-            </p>
+              <button
+                title="Edit"
+                className="mr-2"
+                onClick={() => setEditing(true)}
+              >
+                <MdEdit />
+              </button>
+              <button
+                title="Remove and Deploy"
+                className="ml-2"
+                onClick={() => setShowModal(true)}
+              >
+                <MdDeleteForever />
+              </button>
+            </IconContext.Provider>
           </div>
-          <h2 className="self-center text-2xl sm:text-3xl italic my-4">
-            {name}
-          </h2>
-          <div className="p-4 text-lg">
-            <p>{description}</p>
-          </div>
-        </>
-      )}
-      {editing && admin && (
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-          <div className="w-full bg-gradient-to-r from-[#65b32e] to-[#0095d6]">
-            <p className="text-center p-4 text-slate-100">
-              <span>
-                <textarea
-                  defaultValue={when}
-                  {...register("when")}
-                  className="bg-transparent outline-none w-1/3 text-center"
-                  rows={1}
-                />
-              </span>
-              @
-              <span>
-                <textarea
-                  defaultValue={where}
-                  {...register("where")}
-                  className="bg-transparent outline-none w-1/3 text-center"
-                  rows={1}
-                />
-              </span>
-            </p>
-          </div>
-          <h2 className="self-center text-2xl sm:text-3xl italic my-4">
-            <textarea
-              defaultValue={name}
-              {...register("name")}
-              className="bg-transparent outline-none italic text-center"
-              rows={1}
-            />
-          </h2>
-          <div className="p-4 text-lg">
-            <textarea
-              defaultValue={description}
-              {...register("description")}
-              className="w-full bg-transparent outline-none"
-            />
-          </div>
-          {responseError && (
-            <p className="self-center text-red-500 italic">{responseError}</p>
-          )}
-          <div className="flex flex-row self-end m-4">
-            <button
-              className="p-4 border-2 rounded border-red-500 bg-red-500 hover:bg-transparent hover:text-red-500 text-slate-100 transition-colors ease-in-out duration-300"
-              name="cancel"
-            >
-              Cancel
-            </button>
+        )}
+        {!editing && (
+          <>
+            <div className="w-full bg-gradient-to-r from-[#65b32e] to-[#0095d6]">
+              <p className="text-center p-4 text-slate-100">
+                {when} @ {where}
+              </p>
+            </div>
+            <h2 className="self-center text-2xl sm:text-3xl italic my-4">
+              {name}
+            </h2>
+            <div className="p-4 text-lg">
+              <p>{description}</p>
+            </div>
+          </>
+        )}
+        {editing && admin && (
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+            <div className="w-full bg-gradient-to-r from-[#65b32e] to-[#0095d6]">
+              <p className="text-center p-4 text-slate-100">
+                <span>
+                  <textarea
+                    defaultValue={when}
+                    {...register("when")}
+                    className="bg-transparent outline-none w-1/3 text-center"
+                    rows={1}
+                  />
+                </span>
+                @
+                <span>
+                  <textarea
+                    defaultValue={where}
+                    {...register("where")}
+                    className="bg-transparent outline-none w-1/3 text-center"
+                    rows={1}
+                  />
+                </span>
+              </p>
+            </div>
+            <h2 className="self-center text-2xl sm:text-3xl italic my-4">
+              <textarea
+                defaultValue={name}
+                {...register("name")}
+                className="bg-transparent outline-none italic text-center"
+                rows={1}
+              />
+            </h2>
+            <div className="p-4 text-lg">
+              <textarea
+                defaultValue={description}
+                {...register("description")}
+                className="w-full bg-transparent outline-none"
+              />
+            </div>
+            {responseError && (
+              <p className="self-center text-red-500 italic">{responseError}</p>
+            )}
+            <div className="flex flex-row self-end m-4">
+              <button
+                className="p-4 border-2 rounded border-red-500 bg-red-500 hover:bg-transparent hover:text-red-500 text-slate-100 transition-colors ease-in-out duration-300"
+                name="cancel"
+              >
+                Cancel
+              </button>
+              <button
+                className="p-4 border-2 ml-4 rounded border-[#65b32e] bg-[#65b32e] hover:bg-transparent hover:text-[#65b32e] text-slate-100 transition-colors ease-in-out duration-300"
+                name="deploy"
+              >
+                Apply and Deploy
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
+      <Modal
+        isOpen={showModal}
+        onRequestClose={closeModal}
+        overlayClassName="fixed top-0 left-0 right-0 bottom-0 bg-slate-400/80 dark:bg-slate-900/80"
+        className="absolute p-4 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-200 dark:bg-gray-800 rounded"
+      >
+        <div className="flex flex-col">
+          <h3 className="self-center text-gray-900 dark:text-slate-100 text-3xl p-2">
+            You are about to delete &quot;{name}&quot;
+          </h3>
+          <p className="text-gray-900 dark:text-slate-100 p-2">
+            Do you wish to continue?
+          </p>
+          <div className="self-end m-4 flex flex-row">
             <button
               className="p-4 border-2 ml-4 rounded border-[#65b32e] bg-[#65b32e] hover:bg-transparent hover:text-[#65b32e] text-slate-100 transition-colors ease-in-out duration-300"
-              name="deploy"
+              onClick={() => closeModal()}
             >
-              Apply and Deploy
+              Keep
+            </button>
+            <button
+              className="p-4 border-2 ml-4 rounded border-red-500 bg-red-500 hover:bg-transparent hover:text-red-500 text-slate-100 transition-colors ease-in-out duration-300"
+              onClick={() => {
+                fetch("/api/events/delete", {
+                  method: "DELETE",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ id }),
+                }).then(async (res) => {
+                  if (res.ok) alert("Event deleted successfully");
+                  else alert((await res.json()).message);
+                  closeModal();
+                });
+              }}
+            >
+              Delete and Deploy
             </button>
           </div>
-        </form>
-      )}
-    </div>
+        </div>
+      </Modal>
+    </>
   );
 };
 

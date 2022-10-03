@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import type { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";

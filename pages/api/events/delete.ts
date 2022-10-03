@@ -7,30 +7,20 @@ import prisma from "../../../lib/prismadb";
 interface IReq extends NextApiRequest {
   body: {
     id: string;
-    name: string;
-    when: string;
-    where: string;
-    description: string;
   };
 }
 
 export default async (req: IReq, res: NextApiResponse) => {
   const session = await unstable_getServerSession(req, res, authOptions);
   if (session) {
-    if (req.method === "PATCH") {
-      const { name, when, where, description, id } = req.body;
-      const updatedEvent = await prisma.events.update({
+    if (req.method === "DELETE") {
+      const { id } = req.body;
+      const del = await prisma.events.delete({
         where: {
           id,
         },
-        data: {
-          name,
-          when,
-          where,
-          description,
-        },
       });
-      if (updatedEvent.name) {
+      if (del.id) {
         res.status(200).json({ message: "OK" });
       } else {
         res.status(500).json({ message: "Could not update database" });
