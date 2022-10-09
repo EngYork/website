@@ -1,0 +1,19 @@
+---
+import Header from "../components/Header.astro";
+---
+
+<html lang="en" class="w-full h-full">
+  <head>
+    <meta charset="utf-8" />
+    <slot name="page-title">
+      <title>ShockSoc</title>
+    </slot>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body class="w-full h-ful text-slate-900 dark:text-slate-100">
+    <Header />
+    <slot />
+  </body>
+</html>
