@@ -1,0 +1,62 @@
+{
+  "cards": [
+    {
+      "name": "Yusu",
+      "cardColours": "border-cyan-700 bg-cyan-700 shadow-cyan-700 dark:border-cyan-500 dark:bg-cyan-500 dark:shadow-cyan-500",
+      "image": "/assets/yusu.png",
+      "badgeColours": "border-cyan-700 dark:border-cyan-500",
+      "textColour": "text-cyan-700 dark:text-cyan-500",
+      "hoverTextColour": "hover:text-cyan-700 dark:hover:text-cyan-500",
+      "link": "https://yusu.org/activities/view/shocksoc",
+      "buttonMessage": "Visit our YUSU page"
+    },
+    {
+      "name": "Discord",
+      "cardColours": "border-[#5865F2] bg-[#5865F2] shadow-[#5865F2]",
+      "image": "/assets/discord.png",
+      "badgeColours": "border-[#5865F2]",
+      "textColour": "text-[#5865F2]",
+      "hoverTextColour": "hover:text-[#5865F2]",
+      "link": "https://discord.gg/UYZNqjxAvR",
+      "buttonMessage": "Join our Discord server"
+    },
+    {
+      "name": "Twitter",
+      "cardColours": "border-sky-600 bg-sky-600 shadow-sky-600",
+      "image": "/assets/twitter.png",
+      "badgeColours": "border-sky-600",
+      "textColour": "text-sky-600",
+      "hoverTextColour": "hover:text-sky-600",
+      "link": "https://twitter.com/uoy_shocksoc",
+      "buttonMessage": "See our Twitter profile"
+    },
+    {
+      "name": "Instagram",
+      "cardColours": "border-[#F56040] bg-[#F56040] shadow-[#F56040]",
+      "image": "/assets/instagram.png",
+      "badgeColours": "border-[#F56040]",
+      "textColour": "text-[#F56040]",
+      "hoverTextColour": "hover:text-[#F56040]",
+      "link": "https://www.instagram.com/uoy_shocksoc/",
+      "buttonMessage": "Follow us on Instagram"
+    },
+    {
+      "name": "Github",
+      "cardColours": "border-black bg-black shadow-black",
+      "image": "/assets/github.png",
+      "badgeColours": "border-black",
+      "link": "https://github.com/ShockSoc",
+      "buttonMessage": "See our GitHub Org"
+    },
+    {
+      "name": "E-Mail",
+      "cardColours": "border-amber-500 bg-amber-500 shadow-amber-500",
+      "image": "ic:email",
+      "badgeColours": "border-amber-500",
+      "textColour": "text-amber-500",
+      "hoverTextColour": "hover:text-amber-500",
+      "link": "mailto:shocksoc@yusu.org",
+      "buttonMessage": "Send us an e-mail"
+    }
+  ]
+}

@@ -1,6 +1,8 @@
 ---
 import { Icon } from "astro-icon";
+import InfoCard from "../components/InfoCard.astro";
 import Layout from "../layouts/Layout.astro";
+import { cards } from "../components/cards.json";
 ---
 
 <Layout>
@@ -60,6 +62,24 @@ import Layout from "../layouts/Layout.astro";
         <Icon name="bi:chevron-right" class="carouselSVG" />
       </button>
     </div>
+  </div>
+  <div
+    class="bg-slate-400 dark:bg-slate-700 p-4 grid xl:grid-cols-3 md:grid-cols-2"
+  >
+    {
+      cards.map((card) => (
+        <InfoCard
+          badgeColours={card.badgeColours}
+          buttonMessage={card.buttonMessage}
+          cardColours={card.cardColours}
+          image={card.image}
+          link={card.link}
+          name={card.name}
+          hoverTextColour={card.hoverTextColour}
+          textColour={card.textColour}
+        />
+      ))
+    }
   </div>
 </Layout>
 
