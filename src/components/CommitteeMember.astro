@@ -1,0 +1,31 @@
+---
+export interface Props {
+  name: string;
+  bio: string;
+  image: string;
+}
+
+const { name, bio, image } = Astro.props;
+---
+
+<a id={name} href={`#${name}`} class="group w-full p-4 outline-none">
+  <div class="rounded bg-gradient-to-tr from-uni-green to-uni-blue w-full">
+    <div class="rounded relative w-full">
+      <img
+        src={image}
+        alt={`Picture of ${name}`}
+        class="w-full h-full object-fill rounded p-2"
+      />
+      <div
+        class="absolute bottom-0 left-0 w-[calc(100%-1rem)] p-4 mx-2 bg-gradient-to-tr from-uni-green/50 to-uni-blue/50 text-slate-200"
+      >
+        <p class="text-2xl italic">{name}</p>
+        <p
+          class="text-[0px] group-focus:text-lg text-justify transition-[font] ease-in-out duration-100"
+        >
+          {bio}
+        </p>
+      </div>
+    </div>
+  </div>
+</a>

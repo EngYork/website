@@ -1,5 +1,39 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { getDatabase, ref, get } from "firebase/database";
+import { getStorage, ref as sRef, getDownloadURL } from "firebase/storage";
+import { firebaseClient } from "../firebase";
+import CommitteeMember from "../components/CommitteeMember.astro";
+
+type CommitteeType = {
+  [key: string]: {
+    bio: string;
+    image: string;
+  };
+};
+
+const db = getDatabase(firebaseClient);
+const storage = getStorage(firebaseClient);
+
+const committeeRef = ref(db, "committee");
+
+let committe: CommitteeType = {};
+
+const snapshot = (await get(committeeRef)).val();
+
+if (snapshot) committe = snapshot;
+else console.error("FIREBASE ERROR: Could not retrieve committee");
+
+for (var member in committe) {
+  try {
+    const imageURL = await getDownloadURL(
+      sRef(storage, `committee/${member.toLowerCase()}.jpg`)
+    );
+    committe[member].image = imageURL;
+  } catch (error) {
+    console.error("FIREBASE ERROR: ", error);
+  }
+}
 ---
 
 <Layout>
@@ -44,5 +78,16 @@ import Layout from "../layouts/Layout.astro";
       </li>
     </ul>
     <p class="italic text-center text-4xl sm:text-5xl my-4">Our Committee</p>
+    <div class="grid md:grid-cols-2 xl:grid-cols-3">
+      {
+        Object.keys(committe).map((member) => (
+          <CommitteeMember
+            name={member}
+            bio={committe[member].bio}
+            image={committe[member].image}
+          />
+        ))
+      }
+    </div>
   </div>
 </Layout>
