@@ -4,7 +4,15 @@ const colors = require("tailwindcss/colors");
 module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue,json}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        uni: {
+          blue: "#0095d6",
+          green: "#65b32e",
+          yellow: "#fbb800",
+        },
+      },
+    },
   },
   plugins: [],
 };
