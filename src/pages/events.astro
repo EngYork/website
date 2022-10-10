@@ -1,0 +1,63 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getDatabase, ref, get } from "firebase/database";
+import { getStorage, ref as sRef, getDownloadURL } from "firebase/storage";
+import { firebaseClient } from "../firebase";
+import Event from "../components/Event.astro";
+
+type EventType = {
+  [key: string]: {
+    description: string;
+    when: string;
+    where: string;
+    image: string;
+  };
+};
+
+const db = getDatabase(firebaseClient);
+const storage = getStorage(firebaseClient);
+
+const eventsRef = ref(db, "events");
+
+let events: EventType = {};
+
+const snapshot = (await get(eventsRef)).val();
+
+if (snapshot) events = snapshot;
+else console.error("FIREBASE ERROR: Could not retrieve committee");
+
+for (var event in events) {
+  try {
+    const imageURL = await getDownloadURL(
+      sRef(storage, `events/${event.toLowerCase()}.jpg`)
+    );
+    events[event].image = imageURL;
+  } catch (error) {
+    console.error("FIREBASE ERROR: ", error);
+  }
+}
+---
+
+<Layout>
+  <title slot="page-title">ShockSoc | Events</title>
+  <div class="w-full h-52 md:h-60 xl:h-80 bg-slate-200 dark:bg-slate-800 flex">
+    <h1
+      class="m-auto text-5xl md:text-7xl xl:text-9xl font-bold bg-gradient-to-r from-uni-blue via-uni-green to-uni-yellow bg-clip-text text-transparent"
+    >
+      Events
+    </h1>
+  </div>
+  <div class="w-full flex flex-col p-4 bg-slate-400 dark:bg-slate-700">
+    {
+      Object.keys(events).map((event) => (
+        <Event
+          name={event}
+          description={events[event].description}
+          when={events[event].when}
+          where={events[event].where}
+          image={events[event].image}
+        />
+      ))
+    }
+  </div>
+</Layout>
