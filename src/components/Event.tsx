@@ -5,6 +5,12 @@ import { Input } from "./solid-form/Input";
 import { TextArea } from "./solid-form/TextArea";
 import { getDatabase, ref, update } from "firebase/database";
 import { firebaseClient } from "../firebase";
+import {
+  getDownloadURL,
+  getStorage,
+  ref as sRef,
+  uploadBytes,
+} from "firebase/storage";
 
 interface Props {
   id: string;
@@ -12,7 +18,7 @@ interface Props {
   description: string;
   when: string;
   where: string;
-  image?: string;
+  image: string | undefined;
   auth: Accessor<boolean>;
 }
 
@@ -21,22 +27,45 @@ type UserInputType = {
   description: string;
   when: string;
   where: string;
+  image: File;
 };
 
 const Event = (props: Props) => {
   const [edit, setEdit] = createSignal<boolean>(false);
 
-  const onSubmit = (ev: SubmitEvent) => {
-    ev.preventDefault();
-    const formData = new FormData(ev.target as HTMLFormElement);
-    const userInput = Object.fromEntries(formData) as UserInputType;
+  const updateDatabase = (
+    userInput: UserInputType,
+    imagePath: string | undefined
+  ) => {
     const db = getDatabase(firebaseClient);
-    update(ref(db, "events/"), { [props.id]: userInput })
+    update(ref(db, "events/"), {
+      [props.id]: { ...userInput, image: imagePath },
+    })
       .then(() => {
         alert("Event updated successfully");
         setEdit(false);
       })
       .catch((err) => alert(`FIREBASE ERROR: ${err}`));
+  };
+  const onSubmit = (ev: SubmitEvent) => {
+    ev.preventDefault();
+    const formData = new FormData(ev.target as HTMLFormElement);
+    const userInput = Object.fromEntries(formData) as UserInputType;
+
+    if (userInput.image.name.length > 0) {
+      const storage = getStorage(firebaseClient);
+      const imagePath = `events/${userInput.name.toLowerCase()}.png`;
+      const imageRef = sRef(storage, imagePath);
+      uploadBytes(imageRef, userInput.image)
+        .then((_) => {
+          getDownloadURL(sRef(storage, imagePath))
+            .then((url) => updateDatabase(userInput, url))
+            .catch((err) => alert(`FIREBASE ERROR: ${err}`));
+        })
+        .catch((err) => alert(`FIREBASE ERROR: ${err}`));
+    } else {
+      updateDatabase(userInput, undefined);
+    }
   };
 
   return (
@@ -60,6 +89,13 @@ const Event = (props: Props) => {
         <h2 class="self-center text-2xl sm:text-3xl italic my-4">
           {props.name}
         </h2>
+        <Show when={props.image}>
+          <img
+            src={props.image}
+            alt={`${props.name} poster`}
+            class="rounded w-2/3 mx-auto"
+          />
+        </Show>
         <div class="p-4 text-lg text-justify">
           <p>{props.description}</p>
         </div>
@@ -83,6 +119,7 @@ const Event = (props: Props) => {
                   hint="Description"
                   name="description"
                 />
+                <Input value={""} hint="Upload image" name="image" />
                 <div class="flex flex-row self-end ">
                   <input
                     type="submit"

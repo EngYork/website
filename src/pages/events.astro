@@ -11,7 +11,7 @@ type EventType = {
     description: string;
     when: string;
     where: string;
-    image: string;
+    image: string | undefined;
   };
 };
 
@@ -30,10 +30,11 @@ else console.error("FIREBASE ERROR: Could not retrieve events");
 for (var event in events) {
   try {
     const imageURL = await getDownloadURL(
-      sRef(storage, `events/${event.toLowerCase()}.jpg`)
+      sRef(storage, `events/${events[event].name.toLowerCase()}.png`)
     );
     events[event].image = imageURL;
   } catch (error) {
+    events[event].image = undefined;
     console.error("FIREBASE ERROR: ", error);
   }
 }
