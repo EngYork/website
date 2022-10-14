@@ -1,5 +1,6 @@
 ---
 import HeaderButton from "./HeaderButton.astro";
+import LoginHeaderButton from "../components/LoginHeaderButton";
 ---
 
 <header
@@ -31,5 +32,6 @@ import HeaderButton from "./HeaderButton.astro";
     <HeaderButton link="/website/" text="home" />
     <HeaderButton link="/website/about/" text="about" />
     <HeaderButton link="/website/events/" text="events" />
+    <LoginHeaderButton client:load />
   </div>
 </header>

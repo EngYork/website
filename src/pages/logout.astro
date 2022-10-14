@@ -1,0 +1,42 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <title slot="page-title">ShocSock | Log Out</title>
+  <div class="w-full h-full flex">
+    <div
+      class="rounded p-4 m-auto border-2 border-slate-900 bg-slate-600 shadow-lg flex flex-col"
+    >
+      <h1 class="text-2xl italic text-slate-100">
+        Are you sure you want to log out?
+      </h1>
+      <button
+        id="logout"
+        class="p-1 bg-gradient-to-tr from-uni-blue via-uni-green to-uni-yellow rounded group w-1/2 self-center my-4"
+      >
+        <div
+          class="rounded p-2 mx-auto bg-transparent group-hover:bg-slate-600 w-full flex transition-colors ease-linear duration-150"
+        >
+          <p
+            class="text-center w-full text-slate-100 group-hover:bg-gradient-to-tr group-hover:from-uni-blue group-hover:via-uni-green group-hover:to-uni-yellow group-hover:bg-clip-text group-hover:text-transparent transition-colors ease-linear duration-150"
+          >
+            Log Out
+          </p>
+        </div>
+      </button>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import { getAuth } from "firebase/auth";
+
+  import { authObserver, firebaseClient } from "../firebase";
+
+  const logout = document.getElementById("logout") as HTMLButtonElement;
+
+  logout.addEventListener("click", () => getAuth(firebaseClient).signOut());
+
+  authObserver(undefined, () => (window.location.href = "/website/"));
+</script>

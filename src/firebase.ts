@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { Auth, getAuth, onAuthStateChanged } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAayvJqsMqXc1FK3vg1TMuLOM6UR2g9h84",
@@ -13,4 +14,20 @@ const firebaseConfig = {
 
 const firebaseClient = initializeApp(firebaseConfig);
 
-export { firebaseClient };
+type AuthObserverArgs = (onUser?: () => void, cleanup?: () => void) => Auth;
+
+const authObserver: AuthObserverArgs = (onUser, cleanup) => {
+  const auth = getAuth(firebaseClient);
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      if (onUser) onUser();
+    } else {
+      if (cleanup) cleanup();
+    }
+  });
+
+  return auth;
+};
+
+export { firebaseClient, authObserver };

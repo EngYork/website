@@ -1,0 +1,83 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <title slot="page-title">ShockSoc | Login</title>
+  <div class="w-full h-full flex">
+    <form
+      id="loginForm"
+      class="m-auto w-min p-4 rounded border-2 border-slate-900 bg-slate-600 shadow-lg flex flex-col"
+    >
+      <label
+        class="mx-auto mt-4 my-10 italic font-bold text-2xl md:text-3xl xl:text-4xl bg-gradient-to-r from-uni-blue via-uni-green to-uni-yellow bg-clip-text text-transparent"
+        >Log In</label
+      >
+      <div class="textInputContainer">
+        <input type="email" name="email" class="textInput peer" />
+        <div class="labelContainer">
+          <label class="textInputLabel">Email</label>
+        </div>
+      </div>
+      <div class="textInputContainer">
+        <input type="password" name="password" class="textInput peer" />
+        <div class="labelContainer">
+          <label class="textInputLabel">Password</label>
+        </div>
+      </div>
+      <div
+        class="p-1 bg-gradient-to-tr from-uni-blue via-uni-green to-uni-yellow rounded group w-full hover:cursor-pointer"
+      >
+        <div
+          class="rounded p-2 mx-auto bg-transparent group-hover:bg-slate-600 w-full flex transition-colors ease-linear duration-150"
+        >
+          <input
+            type="submit"
+            class="mx-auto text-slate-100 group-hover:bg-gradient-to-tr group-hover:from-uni-blue group-hover:via-uni-green group-hover:to-uni-yellow group-hover:bg-clip-text group-hover:text-transparent transition-colors ease-linear duration-150 hover:cursor-pointer"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+</Layout>
+
+<script>
+  import { firebaseClient } from "../firebase";
+  import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+  type UserInputType = {
+    email: string;
+    password: string;
+  };
+
+  const auth = getAuth(firebaseClient);
+
+  const form = document.getElementById("loginForm") as HTMLFormElement;
+
+  form.addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const formData = new FormData(ev.target as HTMLFormElement);
+    const userInput = Object.fromEntries(formData) as UserInputType;
+
+    if (!auth.currentUser) {
+      signInWithEmailAndPassword(auth, userInput.email, userInput.password)
+        .then((_) => console.log("Logged in"))
+        .catch((error) => console.log(error));
+    }
+  });
+</script>
+
+<style>
+  .textInputContainer {
+    @apply relative p-1 rounded bg-gradient-to-tr from-uni-blue via-uni-green to-uni-yellow my-4;
+  }
+  .labelContainer {
+    @apply absolute -top-3 left-4 bg-slate-600 px-2 peer-focus:-translate-y-3 peer-focus:-translate-x-4 transition-transform ease-in-out duration-150;
+  }
+  .textInputLabel {
+    @apply bg-gradient-to-tr from-uni-blue via-uni-green to-uni-yellow bg-clip-text text-transparent;
+  }
+  .textInput {
+    @apply bg-slate-600 outline-none rounded p-4;
+  }
+</style>
