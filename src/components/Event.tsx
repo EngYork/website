@@ -3,9 +3,15 @@ import { Portal } from "solid-js/web";
 import { AiOutlineDelete, AiOutlineEdit } from "solid-icons/ai";
 import { Input } from "./solid-form/Input";
 import { TextArea } from "./solid-form/TextArea";
-import { getDatabase, ref, update } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  update,
+  remove as dbRemove,
+} from "firebase/database";
 import { firebaseClient } from "../firebase";
 import {
+  deleteObject,
   getDownloadURL,
   getStorage,
   ref as sRef,
@@ -32,10 +38,11 @@ type UserInputType = {
 
 const Event = (props: Props) => {
   const [edit, setEdit] = createSignal<boolean>(false);
+  const [remove, setRemove] = createSignal<boolean>(false);
 
   const updateDatabase = (
     userInput: UserInputType,
-    imagePath: string | undefined
+    imagePath: string | null
   ) => {
     const db = getDatabase(firebaseClient);
     update(ref(db, "events/"), {
@@ -64,8 +71,26 @@ const Event = (props: Props) => {
         })
         .catch((err) => alert(`FIREBASE ERROR: ${err}`));
     } else {
-      updateDatabase(userInput, undefined);
+      updateDatabase(userInput, null);
     }
+  };
+  const removeEvent = () => {
+    const removeFromDB = () => {
+      const db = getDatabase(firebaseClient);
+      dbRemove(ref(db, `events/${props.id}`))
+        .then(() => {
+          alert("Event removed successfully");
+          setRemove(false);
+        })
+        .catch((err) => alert(`FIREBASE ERROR: ${err}`));
+    };
+    if (props.image) {
+      const storage = getStorage(firebaseClient);
+      const imagePath = `events/${props.name.toLowerCase()}.png`;
+      deleteObject(sRef(storage, imagePath))
+        .then(() => removeFromDB())
+        .catch((err) => alert(`FIREBASE ERROR: ${err}`));
+    } else removeFromDB();
   };
 
   return (
@@ -76,7 +101,7 @@ const Event = (props: Props) => {
             <button class="ml-4 mr-2" onClick={() => setEdit(true)}>
               <AiOutlineEdit size={25} class="fill-black" />
             </button>
-            <button class="ml-2 mr-4">
+            <button class="ml-2 mr-4" onClick={() => setRemove(true)}>
               <AiOutlineDelete size={25} class="fill-black" />
             </button>
           </div>
@@ -100,8 +125,9 @@ const Event = (props: Props) => {
           <p>{props.description}</p>
         </div>
       </div>
-      <Show when={edit() && props.auth()}>
-        <Portal>
+
+      <Portal>
+        <Show when={edit() && props.auth()}>
           <div class="fixed top-0 left-0 bottom-0 right-0 bg-slate-100/60 dark:bg-slate-900/60">
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-slate-900 bg-slate-600 p-4 flex flex-col w-2/3 h-2/3 shadow-xl">
               <form
@@ -132,8 +158,33 @@ const Event = (props: Props) => {
               </form>
             </div>
           </div>
-        </Portal>
-      </Show>
+        </Show>
+        <Show when={remove() && props.auth()}>
+          <div class="fixed top-0 left-0 bottom-0 right-0 bg-slate-100/60 dark:bg-slate-900/60">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-slate-900 bg-slate-600 p-4 flex flex-col w-max h-max shadow-xl">
+              <h2 class="text-2xl w-full text-justify">
+                You are about to delete{" "}
+                <span class="italic">"{props.name}"</span>
+              </h2>
+              <p class="text-lg my-4">Do you wish to continue?</p>
+              <div class="flex flex-row self-end">
+                <button
+                  onClick={removeEvent}
+                  class="border-2 border-orange-500 bg-orange-500 text-slate-100 hover:bg-transparent hover:text-orange-500 transition-colors ease-linear duration-150 mr-4 p-4 rounded"
+                >
+                  Delete
+                </button>
+                <button
+                  onClick={() => setRemove(false)}
+                  class="border-2 border-red-500 bg-red-500 text-slate-100 hover:bg-transparent hover:text-red-500 transition-colors ease-linear duration-150 p-4 rounded"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </Show>
+      </Portal>
     </>
   );
 };

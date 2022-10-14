@@ -45,7 +45,7 @@ const EventsContainer = (props: Props) => {
 
   const addToDatabase = (
     userInput: UserInputType,
-    imagePath: string | undefined
+    imagePath: string | null
   ) => {
     const db = getDatabase(firebaseClient);
     push(ref(db, "events/"), {
@@ -53,7 +53,7 @@ const EventsContainer = (props: Props) => {
       image: imagePath,
     })
       .then(() => {
-        alert("Event updated successfully");
+        alert("Event created successfully");
         setCreate(false);
       })
       .catch((err) => alert(`FIREBASE ERROR: ${err}`));
@@ -75,7 +75,7 @@ const EventsContainer = (props: Props) => {
         })
         .catch((err) => alert(`FIREBASE ERROR: ${err}`));
     } else {
-      addToDatabase(userInput, undefined);
+      addToDatabase(userInput, null);
     }
   };
 
