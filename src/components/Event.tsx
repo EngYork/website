@@ -17,6 +17,7 @@ import {
   ref as sRef,
   uploadBytes,
 } from "firebase/storage";
+import { Modal } from "./Modal";
 
 interface Props {
   id: string;
@@ -126,65 +127,55 @@ const Event = (props: Props) => {
         </div>
       </div>
 
-      <Portal>
-        <Show when={edit() && props.auth()}>
-          <div class="fixed top-0 left-0 bottom-0 right-0 bg-slate-100/60 dark:bg-slate-900/60">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-slate-900 bg-slate-600 p-4 flex flex-col w-2/3 h-2/3 shadow-xl">
-              <form
-                onSubmit={onSubmit}
-                class="flex flex-col overflow-scroll p-4 border-2 border-slate-900 rounded shadow text-slate-100"
-              >
-                <Input value={props.name} hint="Event name" name="name" />
-                <Input value={props.when} hint="When" name="when" />
-                <Input value={props.where} hint="Where" name="where" />
-                <TextArea
-                  value={props.description}
-                  hint="Description"
-                  name="description"
-                />
-                <Input value={""} hint="Upload image" name="image" />
-                <div class="flex flex-row self-end ">
-                  <input
-                    type="submit"
-                    class="border-2 border-green-500 bg-green-500 text-slate-100 hover:bg-transparent hover:text-green-500 transition-colors ease-linear duration-150 rounded p-4 w-min mr-4 hover:cursor-pointer"
-                  />
-                  <input
-                    type="button"
-                    value="Cancel"
-                    class="border-2 border-red-500 bg-red-500 text-slate-100 hover:bg-transparent hover:text-red-500 transition-colors ease-linear duration-150 rounded p-4 w-min hover:cursor-pointer"
-                    onClick={() => setEdit(false)}
-                  />
-                </div>
-              </form>
-            </div>
+      <Modal isOpen={edit() && props.auth()} dimensions="w-2/3 h-2/3">
+        <form
+          onSubmit={onSubmit}
+          class="flex flex-col overflow-scroll p-4 border-2 border-slate-900 rounded shadow text-slate-100"
+        >
+          <Input value={props.name} hint="Event name" name="name" />
+          <Input value={props.when} hint="When" name="when" />
+          <Input value={props.where} hint="Where" name="where" />
+          <TextArea
+            value={props.description}
+            hint="Description"
+            name="description"
+          />
+          <Input value={""} hint="Upload image" name="image" />
+          <div class="flex flex-row self-end ">
+            <input
+              type="submit"
+              class="border-2 border-green-500 bg-green-500 text-slate-100 hover:bg-transparent hover:text-green-500 transition-colors ease-linear duration-150 rounded p-4 w-min mr-4 hover:cursor-pointer"
+            />
+            <input
+              type="button"
+              value="Cancel"
+              class="border-2 border-red-500 bg-red-500 text-slate-100 hover:bg-transparent hover:text-red-500 transition-colors ease-linear duration-150 rounded p-4 w-min hover:cursor-pointer"
+              onClick={() => setEdit(false)}
+            />
           </div>
-        </Show>
-        <Show when={remove() && props.auth()}>
-          <div class="fixed top-0 left-0 bottom-0 right-0 bg-slate-100/60 dark:bg-slate-900/60">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-slate-900 bg-slate-600 p-4 flex flex-col w-max h-max shadow-xl">
-              <h2 class="text-2xl w-full text-justify">
-                You are about to delete{" "}
-                <span class="italic">"{props.name}"</span>
-              </h2>
-              <p class="text-lg my-4">Do you wish to continue?</p>
-              <div class="flex flex-row self-end">
-                <button
-                  onClick={removeEvent}
-                  class="border-2 border-orange-500 bg-orange-500 text-slate-100 hover:bg-transparent hover:text-orange-500 transition-colors ease-linear duration-150 mr-4 p-4 rounded"
-                >
-                  Delete
-                </button>
-                <button
-                  onClick={() => setRemove(false)}
-                  class="border-2 border-red-500 bg-red-500 text-slate-100 hover:bg-transparent hover:text-red-500 transition-colors ease-linear duration-150 p-4 rounded"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        </Show>
-      </Portal>
+        </form>
+      </Modal>
+
+      <Modal isOpen={remove() && props.auth()} dimensions={"w-max h-max"}>
+        <h2 class="text-2xl w-full text-justify">
+          You are about to delete <span class="italic">"{props.name}"</span>
+        </h2>
+        <p class="text-lg my-4">Do you wish to continue?</p>
+        <div class="flex flex-row self-end">
+          <button
+            onClick={removeEvent}
+            class="border-2 border-orange-500 bg-orange-500 text-slate-100 hover:bg-transparent hover:text-orange-500 transition-colors ease-linear duration-150 mr-4 p-4 rounded"
+          >
+            Delete
+          </button>
+          <button
+            onClick={() => setRemove(false)}
+            class="border-2 border-red-500 bg-red-500 text-slate-100 hover:bg-transparent hover:text-red-500 transition-colors ease-linear duration-150 p-4 rounded"
+          >
+            Cancel
+          </button>
+        </div>
+      </Modal>
     </>
   );
 };
