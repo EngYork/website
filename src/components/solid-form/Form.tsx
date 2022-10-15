@@ -1,4 +1,4 @@
-import { getDownloadURL, getStorage, uploadBytes, ref } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import type { JSXElement } from "solid-js";
 import { firebaseClient } from "../../firebase";
 

@@ -1,24 +1,17 @@
-import { Accessor, createSignal, Show } from "solid-js";
-import { Portal } from "solid-js/web";
-import { AiOutlineDelete, AiOutlineEdit } from "solid-icons/ai";
-import { Input } from "./solid-form/Input";
-import { TextArea } from "./solid-form/TextArea";
 import {
   getDatabase,
   ref,
-  update,
   remove as dbRemove,
+  update,
 } from "firebase/database";
+import { deleteObject, getStorage, ref as sRef } from "firebase/storage";
+import { AiOutlineDelete, AiOutlineEdit } from "solid-icons/ai";
+import { Accessor, createSignal, Show } from "solid-js";
 import { firebaseClient } from "../firebase";
-import {
-  deleteObject,
-  getDownloadURL,
-  getStorage,
-  ref as sRef,
-  uploadBytes,
-} from "firebase/storage";
 import { Modal } from "./Modal";
 import { Form } from "./solid-form/Form";
+import { Input } from "./solid-form/Input";
+import { TextArea } from "./solid-form/TextArea";
 
 interface Props {
   id: string;

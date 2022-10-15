@@ -1,9 +1,9 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { getDatabase, ref, get } from "firebase/database";
-import { getStorage, ref as sRef, getDownloadURL } from "firebase/storage";
-import { firebaseClient } from "../firebase";
+import { get, getDatabase, ref } from "firebase/database";
+import { getDownloadURL, getStorage, ref as sRef } from "firebase/storage";
 import CommitteeMember from "../components/CommitteeMember.astro";
+import { firebaseClient } from "../firebase";
+import Layout from "../layouts/Layout.astro";
 
 type CommitteeType = {
   [key: string]: {

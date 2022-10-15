@@ -1,8 +1,8 @@
 ---
 import { Icon } from "astro-icon";
+import { cards } from "../components/cards.json";
 import InfoCard from "../components/InfoCard.astro";
 import Layout from "../layouts/Layout.astro";
-import { cards } from "../components/cards.json";
 ---
 
 <Layout>
@@ -84,8 +84,8 @@ import { cards } from "../components/cards.json";
 </Layout>
 
 <script>
-  import { authObserver } from "../firebase";
   import carousel from "../components/carousel";
+  import { authObserver } from "../firebase";
 
   carousel();
 

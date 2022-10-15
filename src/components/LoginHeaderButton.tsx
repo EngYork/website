@@ -1,4 +1,4 @@
-import { createEffect, createSignal } from "solid-js";
+import { createSignal } from "solid-js";
 import { authObserver } from "../firebase";
 
 type LoginHeaderParams = [url: string, text?: string];

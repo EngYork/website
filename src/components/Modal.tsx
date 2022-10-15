@@ -1,4 +1,4 @@
-import type { Accessor, JSXElement } from "solid-js";
+import type { JSXElement } from "solid-js";
 import { Portal, Show } from "solid-js/web";
 
 interface Props {

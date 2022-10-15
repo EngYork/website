@@ -42,8 +42,8 @@ import Layout from "../layouts/Layout.astro";
 </Layout>
 
 <script>
-  import { firebaseClient } from "../firebase";
   import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+  import { firebaseClient } from "../firebase";
 
   type UserInputType = {
     email: string;
