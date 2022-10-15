@@ -11,6 +11,7 @@ import Event from "./Event";
 import { Portal } from "solid-js/web";
 import { Input } from "./solid-form/Input";
 import { TextArea } from "./solid-form/TextArea";
+import { Form } from "./solid-form/Form";
 
 type EventType = {
   name: string;
@@ -58,26 +59,6 @@ const EventsContainer = (props: Props) => {
       })
       .catch((err) => alert(`FIREBASE ERROR: ${err}`));
   };
-  const onSubmit = (ev: SubmitEvent) => {
-    ev.preventDefault();
-    const formData = new FormData(ev.target as HTMLFormElement);
-    const userInput = Object.fromEntries(formData) as UserInputType;
-
-    if (userInput.image.name.length > 0) {
-      const storage = getStorage(firebaseClient);
-      const imagePath = `events/${userInput.name.toLowerCase()}.png`;
-      const imageRef = sRef(storage, imagePath);
-      uploadBytes(imageRef, userInput.image)
-        .then((_) => {
-          getDownloadURL(sRef(storage, imagePath))
-            .then((url) => addToDatabase(userInput, url))
-            .catch((err) => alert(`FIREBASE ERROR: ${err}`));
-        })
-        .catch((err) => alert(`FIREBASE ERROR: ${err}`));
-    } else {
-      addToDatabase(userInput, null);
-    }
-  };
 
   return (
     <div class="w-full flex flex-col p-4 bg-slate-400 dark:bg-slate-700">
@@ -109,10 +90,7 @@ const EventsContainer = (props: Props) => {
           <Show when={create()}>
             <div class="fixed top-0 left-0 bottom-0 right-0 bg-slate-100/60 dark:bg-slate-900/60">
               <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-slate-900 bg-slate-600 p-4 flex flex-col w-2/3 h-2/3 shadow-xl">
-                <form
-                  onSubmit={onSubmit}
-                  class="flex flex-col overflow-scroll p-4 border-2 border-slate-900 rounded shadow text-slate-100"
-                >
+                <Form databaseFunc={addToDatabase}>
                   <Input value={""} hint="Event name" name="name" />
                   <Input value={""} hint="When" name="when" />
                   <Input value={""} hint="Where" name="where" />
@@ -130,7 +108,7 @@ const EventsContainer = (props: Props) => {
                       onClick={() => setCreate(false)}
                     />
                   </div>
-                </form>
+                </Form>
               </div>
             </div>
           </Show>

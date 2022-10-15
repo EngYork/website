@@ -18,6 +18,7 @@ import {
   uploadBytes,
 } from "firebase/storage";
 import { Modal } from "./Modal";
+import { Form } from "./solid-form/Form";
 
 interface Props {
   id: string;
@@ -55,26 +56,7 @@ const Event = (props: Props) => {
       })
       .catch((err) => alert(`FIREBASE ERROR: ${err}`));
   };
-  const onSubmit = (ev: SubmitEvent) => {
-    ev.preventDefault();
-    const formData = new FormData(ev.target as HTMLFormElement);
-    const userInput = Object.fromEntries(formData) as UserInputType;
 
-    if (userInput.image.name.length > 0) {
-      const storage = getStorage(firebaseClient);
-      const imagePath = `events/${userInput.name.toLowerCase()}.png`;
-      const imageRef = sRef(storage, imagePath);
-      uploadBytes(imageRef, userInput.image)
-        .then((_) => {
-          getDownloadURL(sRef(storage, imagePath))
-            .then((url) => updateDatabase(userInput, url))
-            .catch((err) => alert(`FIREBASE ERROR: ${err}`));
-        })
-        .catch((err) => alert(`FIREBASE ERROR: ${err}`));
-    } else {
-      updateDatabase(userInput, null);
-    }
-  };
   const removeEvent = () => {
     const removeFromDB = () => {
       const db = getDatabase(firebaseClient);
@@ -128,10 +110,7 @@ const Event = (props: Props) => {
       </div>
 
       <Modal isOpen={edit() && props.auth()} dimensions="w-2/3 h-2/3">
-        <form
-          onSubmit={onSubmit}
-          class="flex flex-col overflow-scroll p-4 border-2 border-slate-900 rounded shadow text-slate-100"
-        >
+        <Form databaseFunc={updateDatabase}>
           <Input value={props.name} hint="Event name" name="name" />
           <Input value={props.when} hint="When" name="when" />
           <Input value={props.where} hint="Where" name="where" />
@@ -153,7 +132,7 @@ const Event = (props: Props) => {
               onClick={() => setEdit(false)}
             />
           </div>
-        </form>
+        </Form>
       </Modal>
 
       <Modal isOpen={remove() && props.auth()} dimensions={"w-max h-max"}>
