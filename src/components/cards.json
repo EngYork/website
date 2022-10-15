@@ -2,7 +2,7 @@
   "cards": [
     {
       "name": "Yusu",
-      "cardColours": "border-cyan-700 bg-cyan-700 shadow-cyan-700 dark:border-cyan-500 dark:bg-cyan-500 dark:shadow-cyan-500",
+      "cardColours": "border-cyan-700 bg-cyan-700/10 shadow-cyan-700 dark:border-cyan-500 dark:bg-cyan-500/10 dark:shadow-cyan-500",
       "image": "/website/assets/yusu.png",
       "badgeColours": "border-cyan-700 dark:border-cyan-500",
       "textColour": "text-cyan-700 dark:text-cyan-500",
@@ -12,7 +12,7 @@
     },
     {
       "name": "Discord",
-      "cardColours": "border-[#5865F2] bg-[#5865F2] shadow-[#5865F2]",
+      "cardColours": "border-[#5865F2] bg-[#5865F2]/10 shadow-[#5865F2]",
       "image": "/website/assets/discord.png",
       "badgeColours": "border-[#5865F2]",
       "textColour": "text-[#5865F2]",
@@ -22,7 +22,7 @@
     },
     {
       "name": "Twitter",
-      "cardColours": "border-sky-600 bg-sky-600 shadow-sky-600",
+      "cardColours": "border-sky-600 bg-sky-600/10 shadow-sky-600",
       "image": "/website/assets/twitter.png",
       "badgeColours": "border-sky-600",
       "textColour": "text-sky-600",
@@ -32,7 +32,7 @@
     },
     {
       "name": "Instagram",
-      "cardColours": "border-[#F56040] bg-[#F56040] shadow-[#F56040]",
+      "cardColours": "border-[#F56040] bg-[#F56040]/10 shadow-[#F56040]",
       "image": "/website/assets/instagram.png",
       "badgeColours": "border-[#F56040]",
       "textColour": "text-[#F56040]",
@@ -42,7 +42,7 @@
     },
     {
       "name": "Github",
-      "cardColours": "border-black bg-black shadow-black",
+      "cardColours": "border-black bg-black/10 shadow-black",
       "image": "/website/assets/github.png",
       "badgeColours": "border-black",
       "link": "https://github.com/ShockSoc",
@@ -50,7 +50,7 @@
     },
     {
       "name": "E-Mail",
-      "cardColours": "border-amber-500 bg-amber-500 shadow-amber-500",
+      "cardColours": "border-amber-500 bg-amber-500/10 shadow-amber-500",
       "image": "ic:baseline-email",
       "badgeColours": "border-amber-500",
       "textColour": "text-amber-500",

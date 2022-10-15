@@ -19,6 +19,7 @@ import Layout from "../layouts/Layout.astro";
         height="1080"
         viewBox="0, 0, 1080, 1080"
         class="w-80 h-80 self-center xl:self-start fill-slate-900 dark:fill-slate-100"
+        aria-label="ShockSoc Logo"
       >
         <g id="Shock_soc_logo">
           <path
@@ -41,7 +42,7 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </div>
     <div class="w-full min-h-[300px] grid grid-cols-[10%_80%_10%] xl:m-0 my-4">
-      <button class="carouselButton" id="left">
+      <button class="carouselButton" id="left" aria-label="Previous carousel image">
         <Icon name="bi:chevron-left" class="carouselSVG" />
       </button>
       <div
@@ -49,16 +50,28 @@ import Layout from "../layouts/Layout.astro";
         id="slides"
       >
         <div class="carouselIMGContainer carouselVisible">
-          <img src="/website/assets/0.jpg" class="carouselIMG" />
+          <img
+            src="/website/assets/0.jpg"
+            class="carouselIMG"
+            alt="Spaghetti and marshmellow building"
+          />
         </div>
         <div class="carouselIMGContainer">
-          <img src="/website/assets/1.jpg" class="carouselIMG" />
+          <img
+            src="/website/assets/1.jpg"
+            class="carouselIMG"
+            alt="Speaker talk"
+          />
         </div>
         <div class="carouselIMGContainer">
-          <img src="/website/assets/2.jpg" class="carouselIMG" />
+          <img
+            src="/website/assets/2.jpg"
+            class="carouselIMG"
+            alt="Q-Factor contestant set-up close-up"
+          />
         </div>
       </div>
-      <button class="carouselButton" id="right">
+      <button class="carouselButton" id="right" aria-label="Next carousel image">
         <Icon name="bi:chevron-right" class="carouselSVG" />
       </button>
     </div>
