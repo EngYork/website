@@ -7,11 +7,11 @@ import {
 import { deleteObject, getStorage, ref as sRef } from "firebase/storage";
 import { AiOutlineDelete, AiOutlineEdit } from "solid-icons/ai";
 import { Accessor, createSignal, Show } from "solid-js";
-import { firebaseClient } from "../firebase";
-import { Modal } from "./Modal";
-import { Form } from "./solid-form/Form";
-import { Input } from "./solid-form/Input";
-import { TextArea } from "./solid-form/TextArea";
+import { firebaseClient } from "../../firebase";
+import { Modal } from "../Modal";
+import { Form } from "../solid-form/Form";
+import { Input } from "../solid-form/Input";
+import { TextArea } from "../solid-form/TextArea";
 
 interface Props {
   id: string;

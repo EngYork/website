@@ -1,11 +1,11 @@
 import { getDatabase, push, ref } from "firebase/database";
 import { createSignal, For, Show } from "solid-js";
 import { Portal } from "solid-js/web";
-import { authObserver, firebaseClient } from "../firebase";
+import { authObserver, firebaseClient } from "../../firebase";
+import { Form } from "../solid-form/Form";
+import { Input } from "../solid-form/Input";
+import { TextArea } from "../solid-form/TextArea";
 import Event from "./Event";
-import { Form } from "./solid-form/Form";
-import { Input } from "./solid-form/Input";
-import { TextArea } from "./solid-form/TextArea";
 
 type EventType = {
   name: string;

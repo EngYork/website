@@ -1,0 +1,62 @@
+---
+import Icon from "astro-icon";
+---
+
+<div class="w-full min-h-[300px] grid grid-cols-[10%_80%_10%] xl:m-0 my-4">
+  <button class="carouselButton" id="left" aria-label="Previous carousel image">
+    <Icon name="bi:chevron-left" class="carouselSVG" />
+  </button>
+  <div
+    class="rounded overflow-hidden relative flex flex-row w-full items-center"
+    id="slides"
+  >
+    <div class="carouselIMGContainer carouselVisible">
+      <img
+        src="/website/assets/0.jpg"
+        class="carouselIMG"
+        alt="Spaghetti and marshmellow building"
+      />
+    </div>
+    <div class="carouselIMGContainer">
+      <img src="/website/assets/1.jpg" class="carouselIMG" alt="Speaker talk" />
+    </div>
+    <div class="carouselIMGContainer">
+      <img
+        src="/website/assets/2.jpg"
+        class="carouselIMG"
+        alt="Q-Factor contestant set-up close-up"
+      />
+    </div>
+  </div>
+  <button class="carouselButton" id="right" aria-label="Next carousel image">
+    <Icon name="bi:chevron-right" class="carouselSVG" />
+  </button>
+</div>
+
+<script>
+  import carousel from "./carousel";
+
+  carousel();
+</script>
+
+<style>
+  .carouselButton {
+    @apply w-full h-full bg-transparent transition-colors ease-in-out duration-300 hover:bg-black/5 rounded;
+  }
+
+  .carouselSVG {
+    @apply w-5 h-5 m-auto text-slate-900 dark:text-slate-100;
+  }
+
+  .carouselIMGContainer {
+    @apply w-full xl:h-full h-[500px] absolute transition-opacity ease-in duration-300 opacity-0;
+  }
+
+  .carouselIMG {
+    @apply w-full h-full object-cover rounded;
+  }
+
+  .carouselVisible {
+    @apply opacity-100;
+  }
+</style>
