@@ -42,7 +42,11 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </div>
     <div class="w-full min-h-[300px] grid grid-cols-[10%_80%_10%] xl:m-0 my-4">
-      <button class="carouselButton" id="left" aria-label="Previous carousel image">
+      <button
+        class="carouselButton"
+        id="left"
+        aria-label="Previous carousel image"
+      >
         <Icon name="bi:chevron-left" class="carouselSVG" />
       </button>
       <div
@@ -71,38 +75,46 @@ import Layout from "../layouts/Layout.astro";
           />
         </div>
       </div>
-      <button class="carouselButton" id="right" aria-label="Next carousel image">
+      <button
+        class="carouselButton"
+        id="right"
+        aria-label="Next carousel image"
+      >
         <Icon name="bi:chevron-right" class="carouselSVG" />
       </button>
     </div>
   </div>
-  <div
-    class="bg-slate-400 dark:bg-slate-700 p-4 grid xl:grid-cols-3 md:grid-cols-2"
-  >
-    {
-      cards.map((card) => (
-        <InfoCard
-          badgeColours={card.badgeColours}
-          buttonMessage={card.buttonMessage}
-          cardColours={card.cardColours}
-          image={card.image}
-          link={card.link}
-          name={card.name}
-          hoverTextColour={card.hoverTextColour}
-          textColour={card.textColour}
-        />
-      ))
-    }
+  <div class="flex flex-col w-full items-center">
+    <h1
+      class="m-auto my-4 text-5xl md:text-7xl xl:text-9xl font-bold bg-gradient-to-r from-uni-blue via-uni-green to-uni-yellow bg-clip-text text-transparent"
+    >
+      Where to find us
+    </h1>
+    <div
+      class="p-4 grid xl:grid-cols-3 md:grid-cols-2 w-full"
+    >
+      {
+        cards.map((card) => (
+          <InfoCard
+            badgeColours={card.badgeColours}
+            buttonMessage={card.buttonMessage}
+            cardColours={card.cardColours}
+            image={card.image}
+            link={card.link}
+            name={card.name}
+            hoverTextColour={card.hoverTextColour}
+            textColour={card.textColour}
+          />
+        ))
+      }
+    </div>
   </div>
 </Layout>
 
 <script>
   import carousel from "../components/carousel";
-  import { authObserver } from "../firebase";
 
   carousel();
-
-  authObserver();
 </script>
 
 <style>

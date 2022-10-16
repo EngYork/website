@@ -55,7 +55,7 @@ const EventsContainer = (props: Props) => {
   };
 
   return (
-    <div class="w-full flex flex-col p-4 bg-slate-400 dark:bg-slate-700">
+    <div class="w-full flex flex-col p-4">
       <For each={Object.keys(props.events)}>
         {(item) => (
           <Event

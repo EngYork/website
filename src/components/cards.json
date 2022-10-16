@@ -2,7 +2,7 @@
   "cards": [
     {
       "name": "Yusu",
-      "cardColours": "border-cyan-700 bg-cyan-700/10 shadow-cyan-700 dark:border-cyan-500 dark:bg-cyan-500/10 dark:shadow-cyan-500",
+      "cardColours": "border-cyan-700 shadow-cyan-700 bg-cyan-700/10 dark:bg-cyan-500/10 dark:border-cyan-500 dark:shadow-cyan-500",
       "image": "/website/assets/yusu.png",
       "badgeColours": "border-cyan-700 dark:border-cyan-500",
       "textColour": "text-cyan-700 dark:text-cyan-500",
@@ -12,31 +12,31 @@
     },
     {
       "name": "Discord",
-      "cardColours": "border-[#5865F2] bg-[#5865F2]/10 shadow-[#5865F2]",
+      "cardColours": "border-indigo-700 shadow-indigo-700 bg-indigo-700/10 dark:bg-indigo-400/10 dark:border-indigo-400 dark:shadow-indigo-400",
       "image": "/website/assets/discord.png",
-      "badgeColours": "border-[#5865F2]",
-      "textColour": "text-[#5865F2]",
-      "hoverTextColour": "hover:text-[#5865F2]",
+      "badgeColours": "border-indigo-700 dark:border-indigo-400",
+      "textColour": "text-indigo-700 dark:text-indigo-400",
+      "hoverTextColour": "hover:text-indigo-700 dark:hover:text-indigo-400",
       "link": "https://discord.gg/UYZNqjxAvR",
       "buttonMessage": "Join our Discord server"
     },
     {
       "name": "Twitter",
-      "cardColours": "border-sky-600 bg-sky-600/10 shadow-sky-600",
+      "cardColours": "border-sky-700 shadow-sky-700 bg-sky-700/10 dark:bg-sky-400/10 dark:border-sky-400 dark:shadow-sky-400",
       "image": "/website/assets/twitter.png",
-      "badgeColours": "border-sky-600",
-      "textColour": "text-sky-600",
-      "hoverTextColour": "hover:text-sky-600",
+      "badgeColours": "border-sky-700 dark:border-sky-400",
+      "textColour": "text-sky-700 dark:text-sky-400",
+      "hoverTextColour": "hover:text-sky-700 dark:hover:text-sky-400",
       "link": "https://twitter.com/uoy_shocksoc",
       "buttonMessage": "See our Twitter profile"
     },
     {
       "name": "Instagram",
-      "cardColours": "border-[#F56040] bg-[#F56040]/10 shadow-[#F56040]",
+      "cardColours": "border-orange-700 bg-orange-700/10 shadow-orange-700 dark:border-orange-400 dark:bg-orange-400/10 dark:shadow-orange-400",
       "image": "/website/assets/instagram.png",
-      "badgeColours": "border-[#F56040]",
-      "textColour": "text-[#F56040]",
-      "hoverTextColour": "hover:text-[#F56040]",
+      "badgeColours": "border-orange-700 dark:border-orange-400",
+      "textColour": "text-orange-700 dark:text-orange-400",
+      "hoverTextColour": "hover:text-orange-700 dark:hover:text-orange-400",
       "link": "https://www.instagram.com/uoy_shocksoc/",
       "buttonMessage": "Follow us on Instagram"
     },
@@ -50,11 +50,11 @@
     },
     {
       "name": "E-Mail",
-      "cardColours": "border-amber-500 bg-amber-500/10 shadow-amber-500",
+      "cardColours": "border-pink-700 bg-pink-700/10 shadow-pink-700 dark:border-pink-400 dark:bg-pink-400/10 dark:shadow-pink-400",
       "image": "ic:baseline-email",
-      "badgeColours": "border-amber-500",
-      "textColour": "text-amber-500",
-      "hoverTextColour": "hover:text-amber-500",
+      "badgeColours": "border-pink-700 dark:border-pink-400",
+      "textColour": "text-pink-700 dark:text-pink-400",
+      "hoverTextColour": "hover:text-pink-700 dark:hover:text-pink-400",
       "link": "mailto:shocksoc@yusu.org",
       "buttonMessage": "Send us an e-mail"
     }
