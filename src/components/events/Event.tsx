@@ -102,7 +102,11 @@ const Event = (props: Props) => {
         </div>
       </div>
 
-      <Modal isOpen={edit() && props.auth()} dimensions="w-2/3 h-2/3">
+      <Modal
+        isOpen={edit() && props.auth()}
+        dimensions="w-2/3 h-2/3"
+        close={() => setEdit(false)}
+      >
         <Form databaseFunc={updateDatabase}>
           <Input value={props.name} hint="Event name" name="name" />
           <Input value={props.when} hint="When" name="when" />
@@ -128,7 +132,11 @@ const Event = (props: Props) => {
         </Form>
       </Modal>
 
-      <Modal isOpen={remove() && props.auth()} dimensions={"w-max h-max"}>
+      <Modal
+        isOpen={remove() && props.auth()}
+        dimensions={"w-max h-max"}
+        close={() => setRemove(false)}
+      >
         <h2 class="text-2xl w-full text-justify">
           You are about to delete <span class="italic">"{props.name}"</span>
         </h2>
