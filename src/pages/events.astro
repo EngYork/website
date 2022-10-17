@@ -23,8 +23,8 @@ const storage = getStorage(firebaseClient);
 try {
   await signInWithEmailAndPassword(
     auth,
-    import.meta.env.FIREBASE_EMAIL,
-    import.meta.env.FIREBASE_PWD
+    import.meta.env.FIREBASE_EMAIL ?? process.env.FIREBASE_EMAIL,
+    import.meta.env.FIREBASE_PWD ?? process.env.FIREBASE_PWD
   );
 } catch (err) {
   console.error(`FIREBASE ERROR: ${err}`);
