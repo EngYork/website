@@ -1,4 +1,5 @@
 ---
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { get, getDatabase, ref } from "firebase/database";
 import { getDownloadURL, getStorage, ref as sRef } from "firebase/storage";
 import EventsContainer from "../components/events/EventsContainer";
@@ -15,8 +16,20 @@ type EventType = {
   };
 };
 
+const auth = getAuth(firebaseClient);
 const db = getDatabase(firebaseClient);
 const storage = getStorage(firebaseClient);
+
+try {
+  await signInWithEmailAndPassword(
+    auth,
+    import.meta.env.FIREBASE_EMAIL,
+    import.meta.env.FIREBASE_PWD
+  );
+} catch (err) {
+  console.error(`FIREBASE ERROR: ${err}`);
+  process.exit(-1);
+}
 
 const eventsRef = ref(db, "events");
 
