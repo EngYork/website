@@ -20,6 +20,7 @@ interface Props {
   when: string;
   where: string;
   image: string | undefined;
+  form: string;
   auth: Accessor<boolean>;
 }
 
@@ -100,6 +101,14 @@ const Event = (props: Props) => {
         <div class="p-4 text-lg text-justify">
           <p>{props.description}</p>
         </div>
+        <Show when={props.form && props.form.length > 0}>
+          <a
+            class="mx-auto rounded text-center m-4 border-2 p-4 border-uni-green bg-uni-green text-slate-100 hover:bg-transparent hover:text-uni-green transition-colors ease-linear duration-200"
+            href={props.form}
+          >
+            Complete the form
+          </a>
+        </Show>
       </div>
 
       <Modal
@@ -111,12 +120,13 @@ const Event = (props: Props) => {
           <Input value={props.name} hint="Event name" name="name" />
           <Input value={props.when} hint="When" name="when" />
           <Input value={props.where} hint="Where" name="where" />
+          <Input value={props.form} hint="Form link" name="form" optional />
           <TextArea
             value={props.description}
             hint="Description"
             name="description"
           />
-          <Input value={""} hint="Upload image" name="image" />
+          <Input value={undefined} hint="Upload image" name="image" />
           <div class="flex flex-row self-end ">
             <input
               type="submit"

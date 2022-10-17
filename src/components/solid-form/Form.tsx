@@ -7,6 +7,7 @@ type UserInputType = {
   description: string;
   when: string;
   where: string;
+  form: string;
   image: File;
 };
 

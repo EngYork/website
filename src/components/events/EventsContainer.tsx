@@ -13,6 +13,7 @@ type EventType = {
   when: string;
   where: string;
   image: string | undefined;
+  form: string;
 };
 
 type Props = {
@@ -26,6 +27,7 @@ type UserInputType = {
   description: string;
   when: string;
   where: string;
+  form: string;
   image: File;
 };
 
@@ -66,6 +68,7 @@ const EventsContainer = (props: Props) => {
             when={props.events[item].when}
             where={props.events[item].where}
             image={props.events[item].image}
+            form={props.events[item].form}
           />
         )}
       </For>
@@ -90,8 +93,9 @@ const EventsContainer = (props: Props) => {
           <Input value={""} hint="Event name" name="name" />
           <Input value={""} hint="When" name="when" />
           <Input value={""} hint="Where" name="where" />
+          <Input value={""} hint="Form link" name="form" optional />
           <TextArea value={""} hint="Description" name="description" />
-          <Input value={""} hint="Upload image" name="image" />
+          <Input value={undefined} hint="Upload image" name="image" />
           <div class="flex flex-row self-end ">
             <input
               type="submit"

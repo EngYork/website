@@ -1,7 +1,8 @@
 type Props = {
-  value: string;
+  value: string | undefined;
   hint: string;
-  name: "name" | "when" | "where" | "image";
+  name: "name" | "when" | "where" | "image" | "form";
+  optional?: boolean;
 };
 
 const Input = (props: Props) => {
@@ -24,11 +25,11 @@ const Input = (props: Props) => {
       ) : (
         <div class="relative p-1 rounded bg-gradient-to-tr from-uni-blue via-uni-green to-uni-yellow my-4 w-full mx-auto">
           <input
-            type="text"
+            type={props.name === "form" ? "url" : "text"}
             name={props.name}
             class="bg-slate-600 outline-none rounded p-4 w-full peer"
             value={props.value}
-            required={true}
+            required={!props.optional}
           />
           <div class="absolute -top-3 left-4 bg-slate-600 px-2 peer-focus:-translate-y-3 peer-focus:-translate-x-4 transition-transform ease-in-out duration-150">
             <label class="bg-gradient-to-tr from-uni-blue via-uni-green to-uni-yellow bg-clip-text text-transparent">
