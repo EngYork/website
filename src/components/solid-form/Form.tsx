@@ -1,6 +1,9 @@
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import type { JSXElement } from "solid-js";
+import { AiOutlineLoading } from "solid-icons/ai";
+import { createSignal, JSXElement } from "solid-js";
 import { firebaseClient } from "../../firebase";
+import { LoadingModal } from "../LoadingModal";
+import { Modal } from "../Modal";
 
 type UserInputType = {
   name: string;
@@ -17,10 +20,12 @@ interface Props {
 }
 
 const Form = (props: Props) => {
+  const [loading, setLoading] = createSignal<boolean>(false);
   const onSubmit = (ev: SubmitEvent) => {
     ev.preventDefault();
     const formData = new FormData(ev.target as HTMLFormElement);
     const userInput = Object.fromEntries(formData) as UserInputType;
+    setLoading(true);
 
     if (userInput.image.name.length > 0) {
       const storage = getStorage(firebaseClient);
@@ -30,20 +35,29 @@ const Form = (props: Props) => {
         .then((_) => {
           getDownloadURL(ref(storage, imagePath))
             .then((url) => props.databaseFunc(userInput, url))
-            .catch((err) => alert(`FIREBASE ERROR: ${err}`));
+            .catch((err) => {
+              alert(`FIREBASE ERROR: ${err}`);
+              setLoading(false);
+            });
         })
-        .catch((err) => alert(`FIREBASE ERROR: ${err}`));
+        .catch((err) => {
+          alert(`FIREBASE ERROR: ${err}`);
+          setLoading(false);
+        });
     } else {
       props.databaseFunc(userInput, null);
     }
   };
   return (
-    <form
-      onSubmit={onSubmit}
-      class="flex flex-col overflow-scroll p-4 border-2 border-slate-900 rounded shadow text-slate-100"
-    >
-      {props.children}
-    </form>
+    <>
+      <form
+        onSubmit={onSubmit}
+        class="flex flex-col overflow-scroll p-4 border-2 border-slate-900 rounded shadow text-slate-100"
+      >
+        {props.children}
+      </form>
+      <LoadingModal loading={loading()} />
+    </>
   );
 };
 

@@ -8,6 +8,7 @@ import { deleteObject, getStorage, ref as sRef } from "firebase/storage";
 import { AiOutlineDelete, AiOutlineEdit } from "solid-icons/ai";
 import { Accessor, createSignal, Show } from "solid-js";
 import { deploy, firebaseClient } from "../../firebase";
+import { LoadingModal } from "../LoadingModal";
 import { Modal } from "../Modal";
 import { Form } from "../solid-form/Form";
 import { Input } from "../solid-form/Input";
@@ -35,6 +36,7 @@ type UserInputType = {
 const Event = (props: Props) => {
   const [edit, setEdit] = createSignal<boolean>(false);
   const [remove, setRemove] = createSignal<boolean>(false);
+  const [loading, setLoading] = createSignal<boolean>(false);
 
   const updateDatabase = (
     userInput: UserInputType,
@@ -58,6 +60,7 @@ const Event = (props: Props) => {
   };
 
   const removeEvent = () => {
+    setLoading(true);
     const removeFromDB = () => {
       const db = getDatabase(firebaseClient);
       dbRemove(ref(db, `events/${props.id}`))
@@ -68,8 +71,12 @@ const Event = (props: Props) => {
           deploy()
             .then(() => {
               alert("The website will be rebuilt shortly");
+              setLoading(false);
             })
-            .catch((e) => alert(e));
+            .catch((e) => {
+              alert(e);
+              setLoading(false);
+            });
         })
         .catch((err) => alert(`FIREBASE ERROR: ${err}`));
     };
@@ -78,7 +85,10 @@ const Event = (props: Props) => {
       const imagePath = `events/${props.name.toLowerCase()}.png`;
       deleteObject(sRef(storage, imagePath))
         .then(() => removeFromDB())
-        .catch((err) => alert(`FIREBASE ERROR: ${err}`));
+        .catch((err) => {
+          alert(`FIREBASE ERROR: ${err}`);
+          setLoading(false);
+        });
     } else removeFromDB();
   };
 
@@ -178,6 +188,8 @@ const Event = (props: Props) => {
           </button>
         </div>
       </Modal>
+
+      <LoadingModal loading={loading()} />
     </>
   );
 };
