@@ -1,6 +1,6 @@
 import { getDatabase, push, ref } from "firebase/database";
 import { createSignal, For, Show } from "solid-js";
-import { authObserver, firebaseClient } from "../../firebase";
+import { authObserver, deploy, firebaseClient } from "../../firebase";
 import { Modal } from "../Modal";
 import { Form } from "../solid-form/Form";
 import { Input } from "../solid-form/Input";
@@ -42,7 +42,7 @@ const EventsContainer = (props: Props) => {
 
   const addToDatabase = (
     userInput: UserInputType,
-    imagePath: string | null
+    imagePath: string | null,
   ) => {
     const db = getDatabase(firebaseClient);
     push(ref(db, "events/"), {
@@ -52,6 +52,12 @@ const EventsContainer = (props: Props) => {
       .then(() => {
         alert("Event created successfully");
         setCreate(false);
+
+        deploy()
+          .then(() => {
+            alert("The website will be rebuilt shortly");
+          })
+          .catch((e) => alert(e));
       })
       .catch((err) => alert(`FIREBASE ERROR: ${err}`));
   };

@@ -7,7 +7,7 @@ import {
 import { deleteObject, getStorage, ref as sRef } from "firebase/storage";
 import { AiOutlineDelete, AiOutlineEdit } from "solid-icons/ai";
 import { Accessor, createSignal, Show } from "solid-js";
-import { firebaseClient } from "../../firebase";
+import { deploy, firebaseClient } from "../../firebase";
 import { Modal } from "../Modal";
 import { Form } from "../solid-form/Form";
 import { Input } from "../solid-form/Input";
@@ -47,6 +47,12 @@ const Event = (props: Props) => {
       .then(() => {
         alert("Event updated successfully");
         setEdit(false);
+
+        deploy()
+          .then(() => {
+            alert("The website will be rebuilt shortly");
+          })
+          .catch((e) => alert(e));
       })
       .catch((err) => alert(`FIREBASE ERROR: ${err}`));
   };
@@ -58,6 +64,12 @@ const Event = (props: Props) => {
         .then(() => {
           alert("Event removed successfully");
           setRemove(false);
+
+          deploy()
+            .then(() => {
+              alert("The website will be rebuilt shortly");
+            })
+            .catch((e) => alert(e));
         })
         .catch((err) => alert(`FIREBASE ERROR: ${err}`));
     };
