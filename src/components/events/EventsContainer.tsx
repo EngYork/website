@@ -42,7 +42,7 @@ const EventsContainer = (props: Props) => {
 
   const addToDatabase = (
     userInput: UserInputType,
-    imagePath: string | null,
+    imagePath: string | null
   ) => {
     const db = getDatabase(firebaseClient);
     push(ref(db, "events/"), {
@@ -83,8 +83,8 @@ const EventsContainer = (props: Props) => {
           class="bg-gradient-to-tr from-uni-blue via-uni-green to-uni-yellow p-1 mx-auto group rounded"
           onClick={() => setCreate(true)}
         >
-          <div class="w-full p-4 group-hover:bg-slate-400 dark:group-hover:bg-slate-700 bg-transparent transition-colors ease-linear duration-150 rounded">
-            <span class="w-full text-center bg-slate-400 dark:bg-slate-700 group-hover:bg-gradient-to-tr group-hover:from-uni-blue group-hover:via-uni-green group-hover:to-uni-yellow bg-clip-text text-transparent transition-colors ease-linear duration-150">
+          <div class="w-full p-4 group-hover:bg-slate-700 bg-transparent transition-colors ease-linear duration-150 rounded">
+            <span class="w-full text-center bg-slate-700 group-hover:bg-gradient-to-tr group-hover:from-uni-blue group-hover:via-uni-green group-hover:to-uni-yellow bg-clip-text text-transparent transition-colors ease-linear duration-150">
               Create new
             </span>
           </div>

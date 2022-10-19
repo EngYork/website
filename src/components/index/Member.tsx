@@ -7,7 +7,7 @@ const Member = () => {
     <>
       <button
         onClick={() => setShoModal(true)}
-        class="transition-colors ease-linear duration-200 self-center xl:self-start mt-4 p-4 text-slate-100 dark:text-gray-700 rounded bg-gray-700 dark:bg-slate-100 border-2 border-transparent hover:bg-transparent hover:text-gray-700 hover:border-gray-700 dark:hover:text-slate-100 dark:hover:border-slate-100"
+        class="transition-colors ease-linear duration-200 self-center xl:self-start mt-4 p-4 text-gray-700 rounded bg-slate-100 border-2 border-transparent hover:bg-transparent hover:text-slate-100 hover:border-slate-100"
       >
         Become a member
       </button>

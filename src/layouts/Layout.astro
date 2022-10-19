@@ -19,7 +19,7 @@ import Header from "../components/layout/Header.astro";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
   </head>
-  <body class="w-full h-full text-slate-900 dark:text-slate-100 flex flex-col">
+  <body class="w-full h-full text-slate-100 flex flex-col">
     <Header />
     <main class="flex-grow flex-shrink-0 basis-[auto]">
       <slot />
@@ -27,7 +27,7 @@ import Header from "../components/layout/Header.astro";
     <Footer />
     <style>
       body {
-        @apply bg-slate-300 dark:bg-slate-700;
+        @apply bg-slate-700;
       }
     </style>
   </body>

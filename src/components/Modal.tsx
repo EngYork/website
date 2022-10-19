@@ -13,7 +13,7 @@ const Modal = (props: Props) => {
     <Portal>
       <Show when={props.isOpen}>
         <div
-          class="fixed top-0 left-0 bottom-0 right-0 bg-slate-100/60 dark:bg-slate-900/60"
+          class="fixed top-0 left-0 bottom-0 right-0 bg-slate-900/60"
           onClick={props.close}
         >
           <div

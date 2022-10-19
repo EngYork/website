@@ -1,9 +1,7 @@
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { AiOutlineLoading } from "solid-icons/ai";
 import { createSignal, JSXElement } from "solid-js";
 import { firebaseClient } from "../../firebase";
 import { LoadingModal } from "../LoadingModal";
-import { Modal } from "../Modal";
 
 type UserInputType = {
   name: string;
