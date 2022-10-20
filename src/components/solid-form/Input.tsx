@@ -14,7 +14,7 @@ const Input = (props: Props) => {
             <input
               name={props.name}
               type="file"
-              accept="image/png"
+              accept="image/webp"
               class="hidden"
             />
             <span class="bg-slate-100 bg-clip-text group-hover:bg-gradient-to-tr group-hover:from-uni-blue group-hover:via-uni-green group-hover:to-uni-yellow group-hover:text-transparent transition-colors ease-linear duration-150">

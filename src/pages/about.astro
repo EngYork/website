@@ -40,7 +40,7 @@ else console.error("FIREBASE ERROR: Could not retrieve committee");
 for (var member in committe) {
   try {
     const imageURL = await getDownloadURL(
-      sRef(storage, `committee/${member.toLowerCase()}.jpg`)
+      sRef(storage, `committee/${member.toLowerCase()}.webp`)
     );
     committe[member].image = imageURL;
   } catch (error) {

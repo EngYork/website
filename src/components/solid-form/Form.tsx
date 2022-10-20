@@ -27,7 +27,7 @@ const Form = (props: Props) => {
 
     if (userInput.image.name.length > 0) {
       const storage = getStorage(firebaseClient);
-      const imagePath = `events/${userInput.name.toLowerCase()}.png`;
+      const imagePath = `events/${userInput.name.toLowerCase()}.webp`;
       const imageRef = ref(storage, imagePath);
       uploadBytes(imageRef, userInput.image)
         .then((_) => {

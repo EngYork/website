@@ -44,7 +44,7 @@ else console.error("FIREBASE ERROR: Could not retrieve events");
 for (var event in events) {
   try {
     const imageURL = await getDownloadURL(
-      sRef(storage, `events/${events[event].name.toLowerCase()}.png`)
+      sRef(storage, `events/${events[event].name.toLowerCase()}.webp`)
     );
     events[event].image = imageURL;
   } catch (error) {
