@@ -8,9 +8,9 @@ export interface Props {
 const { name, bio, image } = Astro.props;
 ---
 
-<div class="group w-full p-4 outline-none">
-  <div class="rounded bg-gradient-to-tr from-uni-green to-uni-blue w-full">
-    <div class="rounded relative w-full">
+<div class="group w-full p-10 outline-none">
+  <div class="rounded bg-gradient-to-tr from-uni-green to-uni-blue w-full h-full">
+    <div class="rounded relative w-full h-full">
       <img
         src={image}
         alt={`Picture of ${name}`}
